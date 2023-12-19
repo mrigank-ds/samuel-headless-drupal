@@ -3,3 +3,6 @@
 @tailwind utilities;
 
 
+footer{
+    background-image: url('/images/footer-background.webp');
+}

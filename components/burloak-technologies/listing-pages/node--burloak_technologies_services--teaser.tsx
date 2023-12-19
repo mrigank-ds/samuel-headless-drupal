@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { DrupalNode } from "next-drupal";
-import limitDescription from "./commons/wordLimit";
+import limitDescription from "../../commons/wordLimit";
 
 interface NodeBTServicesProps {
   node: DrupalNode;
@@ -15,8 +15,7 @@ export function NodeBTServicesTeaser({
   const description = node.field_service_description
     ? limitDescription(node.field_service_description.processed, 20)
     : null;
-    console.log(node,"Node")
-
+    
   return (
     <div className="burloak-technologies-services">
         {node.field_service_thumbnail && (

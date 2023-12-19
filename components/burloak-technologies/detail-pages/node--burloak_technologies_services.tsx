@@ -1,16 +1,14 @@
 import Image from "next/image";
 import { DrupalNode } from "next-drupal";
-import CallToAction from "./commons/CallToAction";
-import BtDetailPageFirstSection from "./commons/burloak-technologies-commons/BtDetailPageFirstSection";
+import CallToAction from "../../commons/CallToAction";
+import BtDetailPageFirstSection from "../commons/BtDetailPageFirstSection";
 import Link from "next/link";
 interface NodeBTServiceProps {
   node: DrupalNode;
 }
 
 export function NodeBTService({ node }: NodeBTServiceProps) {
-  console.log(node.field_certificates, "Nodes");
-
-
+  
   return (
     <>
       <BtDetailPageFirstSection
