@@ -1,32 +1,31 @@
 import Head from "next/head";
 import { GetStaticPropsResult } from "next";
 import { DrupalNode, DrupalMenuLinkContent } from "next-drupal";
-import { NodeBTServicesTeaser } from "components/burloak-technologies/listing-pages/node--burloak_technologies_services--teaser";
 import { drupal } from "lib/drupal";
 import { BtLayout } from "components/burloak-technologies/commons/BtLayout";
-
-interface BtServiceProps {
+import { NodeBtIndustriesTeaser } from "components/burloak-technologies/listing-pages/node--industries--teaser";
+interface BtIndustryProps {
   nodes: DrupalNode[];
   mainMenu : any;
   footerMenus : any;
 }
 
-export default function BtServicePage({ nodes,mainMenu, footerMenus}: BtServiceProps) {
-
+export default function MarketSolutionPage({ nodes,mainMenu, footerMenus}: BtIndustryProps) {
+  
   return (
     <BtLayout menus={mainMenu} footerMenus={footerMenus}>
       <Head>
-        <title>Our Services  | Burloak Technologies</title>
-        <meta
-          name="description"
-        />
+        <title>Our Industries | Burloak Technologies</title>
+        <meta name="description" />
       </Head>
-      <h1 className="mb-10 text-3xl font-black">INTRODUCING YOU TO A WHOLE NEW WORLD OF POSSIBILITIES.</h1>
+      <h1 className="mb-10 text-3xl font-black">
+        EXPLORING NEW MARKET OPPORTUNITIES WITH ADDITIVE MANUFACTURING
+      </h1>
       <div className="grid grid-cols-3">
         {nodes?.length ? (
           nodes.map((node) => (
             <div key={node.id} className="m-12">
-              <NodeBTServicesTeaser node={node}/>
+              <NodeBtIndustriesTeaser node={node} />
             </div>
           ))
         ) : (
@@ -39,21 +38,23 @@ export default function BtServicePage({ nodes,mainMenu, footerMenus}: BtServiceP
 
 export async function getStaticProps(
   context
-): Promise<GetStaticPropsResult<BtServiceProps>> {
+): Promise<GetStaticPropsResult<BtIndustryProps>> {
   const mainMenu = await drupal.getMenu('burloak-technologies');
   const footerMenus = await drupal.getMenu('burloak-technologies-footer');
   const nodes = await drupal.getResourceCollectionFromContext<DrupalNode[]>(
-    "node--burloak_technologies_services",
+    "node--burloak_technologies_industries",
     context,
     {
       params: {
         "filter[status]": 1,
-        "fields[node--burloak_technologies_services]":
-          "field_service_name,path,field_service_description,uid,field_service_thumbnail",
-        include: "field_service_thumbnail,uid",
+        "fields[node--burloak_technologies_industries]":
+          "title,field_industry_thumbnail_image,field_industry_description,path",
+        include: "uid,field_industry_thumbnail_image",
       },
     }
   );
+  
+  
 
   return {
     props: {

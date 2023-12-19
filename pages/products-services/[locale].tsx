@@ -16,7 +16,6 @@ interface IndexPageProps {
 
 export default function MarketSolutionPage({ productNodes,mainMenu,serviceNodes }: IndexPageProps) {
  
-  console.log(productNodes,"Products Node");
   return (
     <Layout menus={mainMenu}>
       <Head>
@@ -78,7 +77,6 @@ export async function getStaticProps(
       
     }
   );
-    console.log(productNodes,"productNodes");
   const serviceNodes = await drupal.getResourceCollectionFromContext<DrupalNode[]>(
     "node--services",
     context,

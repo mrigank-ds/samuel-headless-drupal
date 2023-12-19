@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
+
 const BtHeader = ({ mainMenus }) => {
   const [activeMenu, setActiveMenu] = useState(null);
-  
+
   const router = useRouter();
   /**
    * Set index when you hover
@@ -27,7 +28,7 @@ const BtHeader = ({ mainMenus }) => {
 
   const fetchData = async (locale) => {
     try {
-      const response = await fetch('/api/products', {
+      const response = await fetch("/api/products", {
         method: "POST",
         body: JSON.stringify({
           locale: locale,
@@ -39,24 +40,26 @@ const BtHeader = ({ mainMenus }) => {
       const data = await response.json();
       setProducts(data.data); // Adjust based on the actual structure of the API response
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
-    useEffect(() => {
-      fetchData(router.query.locale);
-    }, []);
-    
+  useEffect(() => {
+    fetchData(router.query.locale);
+  }, []);
+
   return (
     <header className="bg-white-800 py-4">
       <div className="container mx-auto items-center justify-between">
         <div>
-          <Image
-            src="http://localhost/Samuel-Project/install-dir/web/sites/default/files/samuelLogo.jpg"
-            width={200}
-            height={200}
-            alt="Samuel-Logo"
-          />
+          <Link href="/our-businesses/burloak-technologies">
+            <Image
+              src="/images/burloak-technologies_logo.webp" // Path to your image from the public directory
+              alt="Burloak Technologies"
+              width={300} // Set the desired width
+              height={150} // Set the desired height
+            />
+          </Link>
         </div>
         <nav className="flex space-x-4 mt-5">
           {mainMenus &&
@@ -84,7 +87,9 @@ const BtHeader = ({ mainMenus }) => {
                           <p className="hover:text-blue-600">{submenu.title}</p>
                           {submenu.items &&
                             submenu.items.map((value: any, index: number) => (
-                              <p  className="hover:text-blue-600" key={index}>{value.title}</p>
+                              <p className="hover:text-blue-600" key={index}>
+                                {value.title}
+                              </p>
                             ))}
                         </Link>
                       </li>

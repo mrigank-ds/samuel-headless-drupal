@@ -12,22 +12,24 @@ type BtDetailPageFirstSectionProps = {
   video?: any;
   description?: string;
   subTitle?: string;
+  image?:any
 };
 export default function BtDetailPageFirstSection({
   title,
   subTitle,
   video,
   description,
+  image
 }: BtDetailPageFirstSectionProps) {
   return (
     <>
-      <div className="mainDetailPageDiv flex flex-row">
-        <div className="w-2/5">
+      <div className="mainDetailPageDiv flex flex-row bg-black text-white">
+        <div className="w-2/5 ml-[100px] mt-[280px]">
           <h1 className="text-semibold text-2xl">{title}</h1>
           {subTitle && <h1 className="text-semibold text-2xl">{subTitle}</h1>}
         </div>
         <div className="w-3/5">
-          {video && (
+          {video ? (
             <video controls autoPlay loop muted>
               <source
                 src={`http://localhost${video.uri.url}`}
@@ -35,6 +37,17 @@ export default function BtDetailPageFirstSection({
               />
               Your browser does not support the video tag.
             </video>
+          ) : (
+            <>
+              {image && (
+                <Image
+                  src={`http://localhost/${image.uri.url}`}
+                  width={680}
+                  height={480}
+                  alt={`${title}`}
+                ></Image>
+              )}
+            </>
           )}
         </div>
       </div>

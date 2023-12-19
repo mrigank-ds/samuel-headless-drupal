@@ -3,7 +3,7 @@ import Head from "next/head";
 import { DrupalNode } from "next-drupal";
 import { drupal } from "lib/drupal";
 import { BtLayout } from "components/burloak-technologies/commons/BtLayout";
-import { NodeBTService } from "components/burloak-technologies/detail-pages/node--burloak_technologies_services";
+import BtIndustryDetailPage from "components/burloak-technologies/detail-pages/node--industry";
 
 const RESOURCE_TYPES = ["node--page", "node--article"];
 
@@ -13,7 +13,7 @@ interface NodePageProps {
   footerMenus:any;
 }
 
-export default function BurloakTechnologiesNodePage({
+export default function BurloakTechnologiesIndustryNodePage({
   resource,
   buloakTechnologiesMenu,
   footerMenus
@@ -24,11 +24,11 @@ export default function BurloakTechnologiesNodePage({
     <>
       <BtLayout menus={buloakTechnologiesMenu} footerMenus={footerMenus}>
         <Head>
-          <title>{resource.field_service_name}</title>
+          <title>{resource.title}</title>
           <meta name="description" content="Burloak technologies subsite" />
         </Head>
-        {resource.type === "node--burloak_technologies_services" && (
-          <NodeBTService node={resource} />
+        {resource.type === "node--burloak_technologies_industries" && (
+          <BtIndustryDetailPage node={resource} />
         )}
       </BtLayout>
     </>
@@ -36,10 +36,10 @@ export default function BurloakTechnologiesNodePage({
 }
 
 export async function getStaticPaths(context): Promise<GetStaticPathsResult> {
-  return {
-    paths: await drupal.getStaticPathsFromContext(RESOURCE_TYPES, context),
-    fallback: "blocking",
-  };
+    return {
+      paths: await drupal.getStaticPathsFromContext(RESOURCE_TYPES, context),
+      fallback: "blocking",
+    };
 }
 
 export async function getStaticProps(
@@ -56,10 +56,10 @@ export async function getStaticProps(
 
   const type = path.jsonapi.resourceName;
   let params = {};
-  if (type === "node--burloak_technologies_services") {
+  if (type === "node--burloak_technologies_industries") {
     params = {
       include:
-        "field_service_video,field_service_video.field_media_video_file,field_call_to_action_image,uid,field_advantages.field_icon,field_advantages,field_certificates,field_certificates.field_certificate_icon,field_services_paragraph,field_services_paragraph.field_service_image,field_service_thumbnail",
+        "field_industry_qualitites,field_industry_qualitites.field_qualities_card,field_industry_qualitites.field_qualities_card.field_qualities_icon,field_industry_services,field_industry_certificates,field_industry_certificates.field_certificate_icon,field_industry_advantages,field_industry_advantages.field_icon,field_industry_image,field_enhancements,field_enhancements.field_enhancement_cards,field_enhancements.field_enhancement_image",
     };
   }
 
